@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer" />
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+    <script src="./lib//vue-router.js"></script>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/home.css">
+    <link rel="stylesheet" href="./css/detail.css">
+    <script src="./lib/swiper/js/swiper.min.js"></script>
+    <link rel="stylesheet" href="./lib/swiper/css/swiper.min.css">
+    <script src="./lib/jquery.js"></script>
+</head>
+<body>
+    <div id="app">
+        <router-view></router-view>
+    </div>
+   <!-- --------------首页组件的模板-------------- -->
+    <template id="home">
+        <div class="home">
+            <header>
+                <img src="./static/bilibili.png" alt="" srcset="">
+            </header>
+            <nav>
+                <ul>
+                    <li>首页</li>
+                    <li>动画</li>
+                    <li>番剧</li>
+                    <li>国创</li>
+                    <li>音乐</li>
+                    <li>舞蹈</li>
+                </ul>
+            </nav>
+            <div class="banner">
+            <!-- Swiper -->
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img src="./static/m1.jpg" />
+                        </div>
+                        <div class="swiper-slide">Slide 2</div>
+                        <div class="swiper-slide">Slide 3</div>
+                    </div>
+                    <!-- Add Pagination -->
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+
+            <div class="recommend-list">
+                <div class="card-list">
+                    <router-link tag="div" :to="'/detail/'+v.aid" class="v-card" v-for="v in videos" :key="v.aid">
+                        <div class="card">
+                            <img  class="pic" :src="v.pic" alt="">
+                        </div>
+                        <p class="title">
+                            {{v.title}}
+                        </p>
+                    </router-link>
+               
+                </div>
+            </div>
+            
+        </div>
+    </template>
+
+    <!-- --------------视频播放页面的模板-------------- -->
+    <template id="detail">
+        <div class="detail">
+            <header>
+                <img class="back-btn" src="./static/left.png" alt="" @click="back">
+                <img class="bili-logo" src="./static/bililogo.png" alt="">
+            </header>
+            <div class="video-player">
+                <iframe src="//player.bilibili.com/player.html?aid=710727237&bvid=BV1zQ4y1A7qz&cid=191354075&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+                <div>
+                    <h3>hey girl</h3>
+                    <div>
+                        <span>up</span> <span>HeyDinder</span> <span>6.5万次观看</span><span>685弹幕</span> <span>02-26</span>
+                    </div>
+                    <div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <script>
+
+/*------------------首页组件------------------- */
+var Home = Vue.component("home",{
+    template:'#home',
+    data(){
+        return{
+            title:"hello",
+            videos:[1,2,3,4]
+        }
+    },
+    mounted() {
+       this.initSwiper();
+       this.getHomeData()
+    },
+    methods: {
+        initSwiper(){
+            var swiper = new Swiper('.swiper-container', {
+                pagination: {
+                el: '.swiper-pagination',
+                },
+            });
+        },
+        getHomeData(){
+            $.get('https://www.fastmock.site/mock/e5235ba89a269aad3a0c14cd975023bf/api/home',res => {
+                this.videos = res;
+            })
+        }
+    },
+})
+
+
+/*------------------视频播放页面------------------- */
+var Detail = Vue.component("detail",{
+    template:'#detail',
+    mounted(){
+        let id = this.$route.params.id;
+        // console.log('id:',id)
+    },
+    methods: {
+        back(){
+            this.$router.back()
+        }
+    },
+})
+
+var router = new VueRouter({
+    routes: [
+        {
+            path:"/",
+            redirect:"/home"
+        },
+        {
+            path:"/home",
+            component: Home
+        },
+        {
+            path:"/detail/:id",
+            component: Detail
+        },
+    ]
+})
+
+var app = new Vue({
+    router,
+    el: "#app"
+})
+    </script>
+</body>
+</html>

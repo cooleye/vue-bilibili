@@ -1,0 +1,23 @@
+.detail header{
+    text-align: center;
+}
+.detail header .back-btn{
+    width: 20px;
+    height: 20px;
+    float: left;
+    margin-top: 14px;
+    margin-left: 10px;
+}
+.detail header .bili-logo{
+    height: 30px;
+}
+
+.detail .video-player{
+    width: 100%;
+    height: 210px;
+    margin-top: 45px;
+}
+.detail .video-player iframe{
+    width: 100%;
+    height: 100%;
+}
