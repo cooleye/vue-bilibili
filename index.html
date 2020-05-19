@@ -23,27 +23,20 @@
     <template id="home">
         <div class="home">
             <header>
-                <img src="./static/bilibili.png" alt="" srcset="">
+                <img src="./static/bilibili.png">
             </header>
             <nav>
                 <ul>
-                    <li>首页</li>
-                    <li>动画</li>
-                    <li>番剧</li>
-                    <li>国创</li>
-                    <li>音乐</li>
-                    <li>舞蹈</li>
+                    <router-link tag="li" :to="m.url" v-for="m in menuList" :key="m.id">{{m.title}}</router-link>
                 </ul>
             </nav>
             <div class="banner">
             <!-- Swiper -->
                 <div class="swiper-container">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <img src="./static/m1.jpg" />
+                        <div class="swiper-slide" v-for="s in swiperList">
+                            <img :src="s" />
                         </div>
-                        <div class="swiper-slide">Slide 2</div>
-                        <div class="swiper-slide">Slide 3</div>
                     </div>
                     <!-- Add Pagination -->
                     <div class="swiper-pagination"></div>
@@ -77,13 +70,35 @@
             <div class="video-player">
                 <iframe src="//player.bilibili.com/player.html?aid=710727237&bvid=BV1zQ4y1A7qz&cid=191354075&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
                 <div>
-                    <h3>hey girl</h3>
-                    <div>
-                        <span>up</span> <span>HeyDinder</span> <span>6.5万次观看</span><span>685弹幕</span> <span>02-26</span>
+                    <div class="video-info">
+                        <h3>hey girl</h3>
+                        <span class="up-tag">up</span> <span class="up-name">HeyDinder</span> <span class="play-count">6.5万次观看</span><span class="danmu-count">685弹幕</span> <span class="video-date">02-26</span>
                     </div>
-                    <div>
-                        
+                    <div class="video-toolbar">
+                        <div>
+                            <img src="./static/like.png" alt="">
+                            <p>4.3万</p>
+                        </div>
+                        <div>
+                            <img src="./static/like.png" alt="">
+                            <p>4.3万</p>
+                        </div>
+                        <div>
+                            <img src="./static/like.png" alt="">
+                            <p>4.3万</p>
+                        </div>
+                        <div>
+                            <img src="./static/like.png" alt="">
+                            <p>4.3万</p>
+                        </div>
                     </div>
+                    <div class="bottom-tab">
+                        <div class="switcher-wrapper">
+                            <router-link  tag="div" to="/detail/reco"> 相关推荐</router-link>
+                            <router-link  tag="div" to="/detail/comm"> 评论1550</router-link>
+                        </div>
+                    </div>
+                    <router-view class="tab-content"></router-view>
                 </div>
             </div>
         </div>
@@ -95,8 +110,17 @@ var Home = Vue.component("home",{
     template:'#home',
     data(){
         return{
-            title:"hello",
-            videos:[1,2,3,4]
+            videos:[],
+            menuList:[
+                {id:0,title:"首页",url:'/home/0'},
+                {id:1,title:"动画",url:'/home/1'},
+                {id:2,title:"番剧",url:'/home/2'},
+                {id:3,title:"国创",url:'/home/3'},
+                {id:4,title:"音乐",url:'/home/4'},
+            ],
+            swiperList:[
+                './static/b1.jpg','./static/b2.jpg','./static/b3.jpg',
+            ]
         }
     },
     mounted() {
@@ -106,9 +130,8 @@ var Home = Vue.component("home",{
     methods: {
         initSwiper(){
             var swiper = new Swiper('.swiper-container', {
-                pagination: {
-                el: '.swiper-pagination',
-                },
+                pagination: {el: '.swiper-pagination'},
+                autoplay:true
             });
         },
         getHomeData(){
@@ -129,31 +152,50 @@ var Detail = Vue.component("detail",{
     },
     methods: {
         back(){
-            this.$router.back()
+            this.$router.push('/')
         }
     },
 })
+
+var Recomond = Vue.component('recomond',{
+    template:`<h1>相关推荐</h1>`
+})
+var Comment = Vue.component('comment',{
+    template:`<h1>评论</h1>`
+})
+
 
 var router = new VueRouter({
     routes: [
         {
             path:"/",
-            redirect:"/home"
+            redirect:"/home/0"
         },
         {
-            path:"/home",
+            path:"/home/:tab",
             component: Home
         },
         {
             path:"/detail/:id",
-            component: Detail
+            component: Detail,
+            children:[
+                {
+                    path:'/detail/reco',
+                    component: Recomond
+                },
+                {
+                    path:'/detail/comm',
+                    component: Comment
+                }
+            ]
         },
     ]
 })
 
 var app = new Vue({
     router,
-    el: "#app"
+    el: "#app",
+    data:{}
 })
     </script>
 </body>

@@ -50,3 +50,8 @@ body{
   .swiper-pagination-bullets .swiper-pagination-bullet{
       background-color: pink;
   }
+
+  .router-link-active{
+      color:#fb7299;
+      border-bottom: solid 3px #fb7299;
+  }

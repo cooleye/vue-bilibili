@@ -40,7 +40,6 @@ ul li{
     height: 110px;
     box-sizing: border-box;
     padding: 8px;
-    border-bottom: solid 1px #ccc;
     margin-top: 90px;
 }
 
@@ -61,6 +60,7 @@ ul li{
 }
 .recommend-list .card-list .v-card .card{
     border-radius: 3px;
+    color: #666;
 }
 .recommend-list .card-list .v-card .card .pic{
     width: 100%;
