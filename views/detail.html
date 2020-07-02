@@ -1,0 +1,41 @@
+   <!-- --------------视频播放页面的模板-------------- -->
+    <div class="detail">
+        <header>
+            <img class="back-btn" src="./static/left.png" alt="" @click="back">
+            <img class="bili-logo" src="./static/bililogo.png" alt="">
+        </header>
+        <div class="video-player">
+            <iframe src="//player.bilibili.com/player.html?aid=710727237&bvid=BV1zQ4y1A7qz&cid=191354075&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+            <div>
+                <div class="video-info">
+                    <h3>hey girl</h3>
+                    <span class="up-tag">up</span> <span class="up-name">HeyDinder</span> <span class="play-count">6.5万次观看</span><span class="danmu-count">685弹幕</span> <span class="video-date">02-26</span>
+                </div>
+                <div class="video-toolbar">
+                    <div>
+                        <img src="./static/like.png" alt="">
+                        <p>4.3万</p>
+                    </div>
+                    <div>
+                        <img src="./static/like.png" alt="">
+                        <p>4.3万</p>
+                    </div>
+                    <div>
+                        <img src="./static/like.png" alt="">
+                        <p>4.3万</p>
+                    </div>
+                    <div>
+                        <img src="./static/like.png" alt="">
+                        <p>4.3万</p>
+                    </div>
+                </div>
+                <div class="bottom-tab">
+                    <div class="switcher-wrapper">
+                        <router-link  tag="div" to="/detail/reco"> 相关推荐</router-link>
+                        <router-link  tag="div" to="/detail/comm"> 评论1550</router-link>
+                    </div>
+                </div>
+                <router-view class="tab-content"></router-view>
+            </div>
+        </div>
+    </div>

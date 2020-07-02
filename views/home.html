@@ -1,0 +1,38 @@
+   <!-- --------------首页组件的模板-------------- -->
+    <div class="home">
+        <header>
+            <img src="./static/bilibili.png">
+        </header>
+        <nav>
+            <ul>
+                <router-link tag="li" :to="m.url" v-for="m in menuList" :key="m.id">{{m.title}}</router-link>
+            </ul>
+        </nav>
+        <div class="banner">
+        <!-- Swiper -->
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" v-for="s in swiperList">
+                        <img :src="s" />
+                    </div>
+                </div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+
+        <div class="recommend-list">
+            <div class="card-list">
+                <router-link tag="div" :to="'/detail/'+v.aid" class="v-card" v-for="v in videos" :key="v.aid">
+                    <div class="card">
+                        <img  class="pic" :src="v.pic" alt="">
+                    </div>
+                    <p class="title">
+                        {{v.title}}
+                    </p>
+                </router-link>
+           
+            </div>
+        </div>
+        
+    </div>
