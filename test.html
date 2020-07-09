@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.9/lib/index.css" />
+
+    <!-- 引入 Vue 和 Vant 的 JS 文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vant@2.9/lib/vant.min.js"></script>
+    <style>
+        .my-swipe .van-swipe-item {
+    color: #fff;
+    font-size: 20px;
+    line-height: 150px;
+    text-align: center;
+    background-color: #39a9ed;
+  }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script>
+        // 在 #app 标签下渲染一个按钮组件
+        new Vue({
+            el: '#app',
+            data: {
+                date: '',
+                show: false,
+                active: 2,
+            },
+            template: `<div>
+                <van-tabs v-model="active">
+                <van-tab :title="'标签'+index"  v-for="index in 8">内容 {{index}}</van-tab>
+                
+                </van-tabs>
+                </div>`,
+            methods: {
+               
+            },
+        });
+
+    
+    </script>
+</body>
+
+</html>

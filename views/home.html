@@ -5,9 +5,16 @@
         </header>
         <nav>
             <ul>
-                <router-link tag="li" :to="m.url" v-for="m in menuList" :key="m.id">{{m.title}}</router-link>
+                <router-link tag="li"  :to="m.url" v-for="m in menuList" :key="m.id">{{m.title}}</router-link>
             </ul>
+            <span @click="moreMenu"></span>
         </nav>
+        <div class="all-menu">
+            <ul @click.capture="menuSlideUp">
+                <router-link tag="li" :to="m.url" v-for="m in allMenu" :key="m.id">{{m.title}}</router-link>
+            </ul>
+            <div class="m-up"  @click="menuSlideUp"></div>
+        </div>
         <div class="banner">
         <!-- Swiper -->
             <div class="swiper-container">
